@@ -1,0 +1,47 @@
+Storage Engine
+---------------------------
+1. Database Architecture
+    -> Transport - Cluster Communication (Communication between nodes), Client Communication (Requests coming from apps)
+    -> Query Processor 
+        - Query Parser  -> Parse the query, validate it
+        - Query Optimizer
+            - Finds most efficient Query execution plan
+    -> Execution Engine
+        - Executes the query execution plan
+        - Collects results of Local execution (run on storage engine) and Remote Execution (run on different nodes in cluster)
+    -> Storage Engine
+        - Transaction Manager
+        - Lock Manager
+        - Access Methods
+        - Buffer Manager
+        - Recovery Manager
+
+2. Type of database as per storage  
+    - Memory -> In this type data stored in memmory and for backup & recovery disk is utilized
+    - Disk Based -> In this type data stored in disk and memory used for caching.
+
+3. Types of Database as per how data stored in disk 
+    - Column wise - Ex- Apache Parquet
+        - Useful for analytical workloads that comput aggregations
+    - Row wise - Ex- PostgreSQL, MySQL
+    - Wide column 
+        - It should not mixed up with column wise. 
+        - HBase, BigTable where data is represented as a multidimensional map, columns are grouped into column families and inside each column family data is stored row-wise
+
+4. Database stored data in files but instead of relying on filesystem hierarchies of directories and files for locating records, they compose files using implementation-specific formats. The main reason to use specialized file organization over flat files are:
+    - Storage efficiency
+    - Access efficiency
+    - Update efficiency
+
+5. Types of storage files:
+    - Data files - Stores actual record. It can be implemented
+        - Index organized tables - Stores records in index itself. 
+        - heap organized tables - No particular order for record insert. Most of the time records are placed in write order.
+        - hash organized tables - records are stored in buckets and the hask value of the key determines which bucket record belongs to.
+
+    - Index files- They are organized as specialized structure that map keys to locations in data files where the records identified by these keys or primary keys.
+
+6. Storage structures have three common variables :
+    - Buffering
+    - Mutability (or Immutablity)
+    - Order
